@@ -5,7 +5,8 @@
     "workspaces": [
         "src/*",
         "builder",
-        "server"
+        "server",
+        "tutorial"
     ],
     "scripts": {
         "build": "cd builder && yarn run build",
