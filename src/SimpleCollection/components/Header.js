@@ -1,12 +1,10 @@
 import React from "react";
 import { Fragment, useEffect, useRef } from "react";
 import { Link, Image } from "@uniwebcms/module-sdk";
-// import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 
 import { Container } from "./Container";
-// import avatarImage from "@/images/avatar.jpg";
 
 function CloseIcon(props) {
   return (
