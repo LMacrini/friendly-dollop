@@ -72,16 +72,16 @@ function MoonIcon(props) {
 function MobileNavItem({ href, children }) {
   return (
     <li>
-      <Popover.Button as={Link} href={href} className="block py-2">
+      <Link to={href} className="block py-2">
         {children}
-      </Popover.Button>
+      </Link>
     </li>
   );
 }
 
-function MobileNavigation(props) {
+function MobileNavigation({ className, pages }) {
   return (
-    <Popover {...props}>
+    <Popover className={className}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
         Menu
         <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
@@ -121,11 +121,14 @@ function MobileNavigation(props) {
             </div>
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                <MobileNavItem href="/about">About</MobileNavItem>
-                <MobileNavItem href="/articles">Articles</MobileNavItem>
-                <MobileNavItem href="/projects">Projects</MobileNavItem>
-                <MobileNavItem href="/speaking">Speaking</MobileNavItem>
-                <MobileNavItem href="/uses">Uses</MobileNavItem>
+                {pages.map(
+                  (page, index) =>
+                    index > 0 && (
+                      <MobileNavItem href={page.route}>
+                        {page.label}
+                      </MobileNavItem>
+                    )
+                )}
               </ul>
             </nav>
           </Popover.Panel>
@@ -159,15 +162,14 @@ function NavItem({ href, children }) {
   );
 }
 
-function DesktopNavigation(props) {
+function DesktopNavigation({ className, pages }) {
   return (
-    <nav {...props}>
+    <nav className={className}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/about">About</NavItem>
-        <NavItem href="/articles">Articles</NavItem>
-        <NavItem href="/projects">Projects</NavItem>
-        <NavItem href="/speaking">Speaking</NavItem>
-        <NavItem href="/uses">Uses</NavItem>
+        {pages.map(
+          (page, index) =>
+            index > 0 && <NavItem href={page.route}>{page.label}</NavItem>
+        )}
       </ul>
     </nav>
   );
@@ -226,10 +228,10 @@ function AvatarContainer({ className, ...props }) {
   );
 }
 
-function Avatar({ large = false, className, image, profile }) {
+function Avatar({ className, image, profile }) {
   return (
     <Link
-      to="/"
+      to=""
       aria-label="Home"
       className={clsx(className, "pointer-events-auto")}
       //   {...props}
@@ -239,8 +241,7 @@ function Avatar({ large = false, className, image, profile }) {
         alt=""
         // sizes={large ? "4rem" : "2.25rem"}
         className={clsx(
-          "rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",
-          large ? "h-16 w-16" : "h-9 w-9"
+          "rounded-full bg-zinc-100 object-cover dark:bg-zinc-800"
         )}
         profile={profile}
         // priority
@@ -250,15 +251,15 @@ function Avatar({ large = false, className, image, profile }) {
 }
 
 export default function Header(props) {
-  //   let isHomePage = useRouter().pathname === "/";
-  const isHomePage = true;
+  let isHomePage = props.page.activeRoute === "";
 
   let headerRef = useRef();
   let avatarRef = useRef();
   let isInitial = useRef(true);
 
   const avatar = props.block.main.banner.value;
-  console.log(avatar, props.profile);
+  const pages = props.website.getPageHierarchy();
+  console.log(props.page.activeRoute);
 
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0;
@@ -380,20 +381,14 @@ export default function Header(props) {
                 style={{ position: "var(--header-inner-position)" }}
               >
                 <div className="relative">
-                  <AvatarContainer
-                    className="absolute left-0 top-3 origin-left transition-opacity"
-                    style={{
-                      opacity: "var(--avatar-border-opacity, 0)",
-                      transform: "var(--avatar-border-transform)",
-                    }}
-                  />
-                  <Avatar
-                    large
-                    className="block h-16 w-16 origin-left"
-                    style={{ transform: "var(--avatar-image-transform)" }}
-                    image={avatar}
-                    profile={props.profile}
-                  />
+                  {isHomePage && (
+                    <Avatar
+                      className="block h-16 w-16 origin-left"
+                      style={{ transform: "var(--avatar-image-transform)" }}
+                      image={avatar}
+                      profile={props.profile}
+                    />
+                  )}
                 </div>
               </div>
             </Container>
@@ -412,13 +407,24 @@ export default function Header(props) {
               <div className="flex flex-1">
                 {!isHomePage && (
                   <AvatarContainer>
-                    <Avatar />
+                    <Avatar
+                      className="block h-9 w-9 origin-left"
+                      style={{ transform: "var(--avatar-image-transform)" }}
+                      image={avatar}
+                      profile={props.profile}
+                    />
                   </AvatarContainer>
                 )}
               </div>
               <div className="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation className="pointer-events-auto md:hidden" />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                <MobileNavigation
+                  className="pointer-events-auto md:hidden"
+                  pages={pages}
+                />
+                <DesktopNavigation
+                  className="pointer-events-auto hidden md:block"
+                  pages={pages}
+                />
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
