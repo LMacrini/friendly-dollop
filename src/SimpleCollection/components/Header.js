@@ -136,9 +136,8 @@ function MobileNavigation({ className, pages }) {
   );
 }
 
-function NavItem({ href, children }) {
-  //   let isActive = useRouter().pathname === href;
-  const isActive = false;
+function NavItem({ href, children, activeRoute }) {
+  let isActive = activeRoute === href;
 
   return (
     <li>
@@ -160,13 +159,17 @@ function NavItem({ href, children }) {
   );
 }
 
-function DesktopNavigation({ className, pages }) {
+function DesktopNavigation({ className, pages, route }) {
   return (
     <nav className={className}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         {pages.map(
           (page, index) =>
-            index > 0 && <NavItem href={page.route}>{page.label}</NavItem>
+            index > 0 && (
+              <NavItem href={page.route} activeRoute={route}>
+                {page.label}
+              </NavItem>
+            )
         )}
       </ul>
     </nav>
@@ -257,7 +260,6 @@ export default function Header(props) {
 
   const avatar = props.block.main.banner.value;
   const pages = props.website.getPageHierarchy();
-  console.log(props.page.activeRoute);
 
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0;
@@ -422,6 +424,7 @@ export default function Header(props) {
                 <DesktopNavigation
                   className="pointer-events-auto hidden md:block"
                   pages={pages}
+                  route={props.page.activeRoute}
                 />
               </div>
               <div className="flex justify-end md:flex-1">
@@ -435,7 +438,7 @@ export default function Header(props) {
       </header>
       {isHomePage && (
         <div
-          className="flex-none"
+          className="flex-none mb-29"
           style={{ height: "var(--content-offset)" }}
         />
       )}
