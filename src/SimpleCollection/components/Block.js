@@ -6,7 +6,7 @@ export default (props) => {
 
   return (
     <p className="text-lg text-gray-700 font-bold px-4 py-2 bg-gray-100 dark:bg-gray-700 dark:text-white z-[100] mt-28">
-      Hello World!
+      Hello World
     </p>
   );
 };
