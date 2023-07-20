@@ -229,13 +229,13 @@ function AvatarContainer({ className, ...props }) {
   );
 }
 
-function Avatar({ className, image, profile }) {
+function Avatar({ className, image, profile, style }) {
   return (
     <Link
       to=""
       aria-label="Home"
       className={clsx(className, "pointer-events-auto")}
-      //   {...props}
+      style={style}
     >
       <Image
         value={image}
