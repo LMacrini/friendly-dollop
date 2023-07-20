@@ -229,13 +229,13 @@ function AvatarContainer({ className, ...props }) {
   );
 }
 
-function Avatar({ className, image, profile, style }) {
+function Avatar({ className, image, profile, ...props }) {
   return (
     <Link
       to=""
       aria-label="Home"
       className={clsx(className, "pointer-events-auto")}
-      style={style}
+      {...props}
     >
       <Image
         value={image}
@@ -409,7 +409,6 @@ export default function Header(props) {
                   <AvatarContainer>
                     <Avatar
                       className="block h-9 w-9 origin-left"
-                      style={{ transform: "var(--avatar-image-transform)" }}
                       image={avatar}
                       profile={props.profile}
                     />
