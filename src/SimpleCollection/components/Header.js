@@ -4,7 +4,7 @@ import { Link, Image } from "@uniwebcms/module-sdk";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 
-import { Container } from "./Container";
+import { Box } from "./Box";
 
 function CloseIcon(props) {
   return (
@@ -372,7 +372,7 @@ export default function Header(props) {
               ref={avatarRef}
               className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
             />
-            <Container
+            <Box
               className="top-0 order-last -mb-3 pt-3"
               style={{ position: "var(--header-position)" }}
             >
@@ -391,7 +391,7 @@ export default function Header(props) {
                   )}
                 </div>
               </div>
-            </Container>
+            </Box>
           </>
         )}
         <div
@@ -399,7 +399,7 @@ export default function Header(props) {
           className="top-0 z-10 h-16 pt-6"
           style={{ position: "var(--header-position)" }}
         >
-          <Container
+          <Box
             className="top-[var(--header-top,theme(spacing.6))] w-full"
             style={{ position: "var(--header-inner-position)" }}
           >
@@ -432,7 +432,7 @@ export default function Header(props) {
                 </div>
               </div>
             </div>
-          </Container>
+          </Box>
         </div>
       </header>
       {isHomePage && (
