@@ -4,14 +4,6 @@ import { Card } from "./Card";
 import { formatDate } from "./formatDate";
 
 function Article({ profile }) {
-  let body = "";
-  let profileContent = {};
-
-  if (useLoadProfileBody(profile)) {
-    body = profile.at("article_body");
-  }
-  console.log("profile ", profile, profile.getLocationSchema);
-
   const { title, lastEditTime } = profile.getBasicInfo();
 
   return (
@@ -27,7 +19,6 @@ function Article({ profile }) {
 }
 
 export default function ArticleList(props) {
-  console.log(props);
   const [articles, setArticles] = useState([]);
   useEffect(() => {
     Profile.getProfilesInList(props.block.dataSource.contentId).then((data) => {
