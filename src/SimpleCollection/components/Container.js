@@ -13,7 +13,7 @@ export default function Container(props) {
           <Blocks blocks={[childBlocks[0]]} />
           <div className="space-y-10 lg:pl-16 xl:pl-24">
             <Blocks blocks={[childBlocks[1]]} />
-            {/* <Resume /> */}
+            <Blocks blocks={[childBlocks[2]]} />
           </div>
         </div>
       </Box>

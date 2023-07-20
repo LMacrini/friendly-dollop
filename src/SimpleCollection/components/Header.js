@@ -77,7 +77,7 @@ function MobileNavItem({ href, children }) {
   );
 }
 
-function MobileNavigation({ className, pages }) {
+function MobileNavigation({ className, pages, exclusions }) {
   return (
     <Popover className={className}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
@@ -120,8 +120,8 @@ function MobileNavigation({ className, pages }) {
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                 {pages.map(
-                  (page, index) =>
-                    index > 0 && (
+                  (page) =>
+                    !exclusions.includes(page.label) && (
                       <MobileNavItem href={page.route}>
                         {page.label}
                       </MobileNavItem>
@@ -159,13 +159,13 @@ function NavItem({ href, children, activeRoute }) {
   );
 }
 
-function DesktopNavigation({ className, pages, route }) {
+function DesktopNavigation({ className, pages, route, exclusions }) {
   return (
     <nav className={className}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         {pages.map(
-          (page, index) =>
-            index > 0 && (
+          (page) =>
+            !exclusions.includes(page.label) && (
               <NavItem href={page.route} activeRoute={route}>
                 {page.label}
               </NavItem>
@@ -251,15 +251,25 @@ function Avatar({ className, image, profile, ...props }) {
   );
 }
 
-export default function Header(props) {
-  let isHomePage = props.page.activeRoute === "";
+export default function Header({
+  page: { activeRoute },
+  profile,
+  block: {
+    main: {
+      banner,
+      body: { paragraphs },
+    },
+  },
+  website,
+}) {
+  let isHomePage = activeRoute === "";
 
   let headerRef = useRef();
   let avatarRef = useRef();
   let isInitial = useRef(true);
 
-  const avatar = props.block.main.banner.value;
-  const pages = props.website.getPageHierarchy();
+  const avatar = banner.value;
+  const pages = website.getPageHierarchy();
 
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0;
@@ -386,7 +396,7 @@ export default function Header(props) {
                       className="block h-16 w-16 origin-left"
                       style={{ transform: "var(--avatar-image-transform)" }}
                       image={avatar}
-                      profile={props.profile}
+                      profile={profile}
                     />
                   )}
                 </div>
@@ -410,7 +420,7 @@ export default function Header(props) {
                     <Avatar
                       className="block h-9 w-9 origin-left"
                       image={avatar}
-                      profile={props.profile}
+                      profile={profile}
                     />
                   </AvatarContainer>
                 )}
@@ -419,11 +429,13 @@ export default function Header(props) {
                 <MobileNavigation
                   className="pointer-events-auto md:hidden"
                   pages={pages}
+                  exclusions={paragraphs}
                 />
                 <DesktopNavigation
                   className="pointer-events-auto hidden md:block"
                   pages={pages}
-                  route={props.page.activeRoute}
+                  route={activeRoute}
+                  exclusions={paragraphs}
                 />
               </div>
               <div className="flex justify-end md:flex-1">
