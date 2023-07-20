@@ -1,11 +1,6 @@
 import React from "react";
 import { Box } from "./Box";
-import {
-  GitHubIcon,
-  InstagramIcon,
-  LinkedInIcon,
-  TwitterIcon,
-} from "./SocialIcons";
+import { GitHubIcon, InstagramIcon, LinkedInIcon, TwitterIcon } from "./Icons";
 import { Link } from "@uniwebcms/module-sdk";
 
 function SocialLink({ icon: Icon, ...props }) {
