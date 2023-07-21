@@ -67,7 +67,6 @@ const renderIndex = (profiles) => {
   //     })}
   //   </div>
   // );
-  console.log(profiles);
   return (
     <>
       <SimpleLayout
