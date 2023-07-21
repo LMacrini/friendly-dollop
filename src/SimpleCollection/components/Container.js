@@ -3,10 +3,15 @@ import { Box } from "./Box";
 
 export default function Container(props) {
   const {
-    block: { Blocks, childBlocks },
+    block: { Blocks, childBlocks, inputType },
   } = props;
-
-  if (childBlocks.length == 3) {
+  if (inputType === "Vertical") {
+    return (
+      <div className="space-y-20">
+        <Blocks blocks={childBlocks} />
+      </div>
+    );
+  } else if (childBlocks.length == 3) {
     return (
       <Box className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
