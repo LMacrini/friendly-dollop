@@ -13,6 +13,7 @@ import About from "./components/About";
 import ProjectCards from "./components/ProjectCards";
 import SimpleLayout from "./components/SimpleLayout";
 import EventList from "./components/EventsList";
+import ToolSection from "./components/ToolSection";
 // Import the express library
 import * as expressModule from "@uniwebcms/express"; // See README for more details: https://github.com/uniwebcms/express/blob/main/README.md
 // import CSS
@@ -34,4 +35,5 @@ export default {
   ProjectCards,
   SimpleLayout,
   EventList,
+  ToolSection,
 };
