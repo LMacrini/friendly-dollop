@@ -23,7 +23,6 @@ export default function Footer({
   },
 }) {
   const pages = website.getPageHierarchy();
-  console.log(params);
   return (
     <footer className="mt-32 flex-none">
       <Box.Outer>

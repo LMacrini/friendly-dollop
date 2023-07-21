@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Profile, useLoadProfileBody } from "@uniwebcms/module-sdk";
-import { Card } from "./Card";
+import { Card } from "../Card";
 import { formatDate } from "./formatDate";
 
 function Article({ profile }) {

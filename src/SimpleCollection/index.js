@@ -9,6 +9,9 @@ import Container from "./components/Container";
 import Newsletter from "./components/Newsletter";
 import Blog from "./components/Blog";
 import Resume from "./components/Resume";
+import About from "./components/About";
+import ProjectCards from "./components/ProjectCards";
+import SimpleLayout from "./components/SimpleLayout";
 // Import the express library
 import * as expressModule from "@uniwebcms/express"; // See README for more details: https://github.com/uniwebcms/express/blob/main/README.md
 // import CSS
@@ -26,4 +29,7 @@ export default {
   Blog,
   Resume,
   Footer,
+  About,
+  ProjectCards,
+  SimpleLayout,
 };
