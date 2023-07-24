@@ -33,11 +33,10 @@ export default function About({
   block: {
     main: {
       body: { imgs, headings, paragraphs },
-      body,
     },
     params,
   },
-  ...props
+  page: { activeLang },
 }) {
   return (
     <Box className="mt-16 sm:mt-32">
@@ -74,7 +73,9 @@ export default function About({
                 href={"https://twitter.com/" + params.twitter}
                 icon={TwitterIcon}
               >
-                Follow on Twitter
+                {activeLang == "fr"
+                  ? "Suivez sur Twitter"
+                  : "Follow on Twitter"}
               </SocialLink>
             )}
             {params.instagram && (
@@ -83,7 +84,9 @@ export default function About({
                 icon={InstagramIcon}
                 className="mt-4"
               >
-                Follow on Instagram
+                {activeLang == "fr"
+                  ? "Suivez sur Instagram"
+                  : "Follow on Instagram"}
               </SocialLink>
             )}
             {params.github && (
@@ -92,7 +95,7 @@ export default function About({
                 icon={GitHubIcon}
                 className="mt-4"
               >
-                Follow on GitHub
+                {activeLang == "fr" ? "Suivez sur GitHub" : "Follow on GitHub"}
               </SocialLink>
             )}
             {params.linkedin && (
@@ -101,7 +104,9 @@ export default function About({
                 icon={LinkedInIcon}
                 className="mt-4"
               >
-                Follow on LinkedIn
+                {activeLang == "fr"
+                  ? "Suivez sur LinkedIn"
+                  : "Follow on LinkedIn"}
               </SocialLink>
             )}
             {params.email && (
