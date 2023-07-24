@@ -12,16 +12,16 @@ export default function Resume({ block: { items }, profile }) {
         title: paragraphs[1],
         logo: imgs[0],
         start:
-          paragraphs[2] == "Present"
+          paragraphs[2] == "Present" || "Présent"
             ? {
-                label: "Present",
+                label: paragraphs[2],
                 dateTime: new Date().getFullYear(),
               }
             : paragraphs[2],
         end:
-          paragraphs[3] == "Present"
+          paragraphs[3] == "Present" || "Présent"
             ? {
-                label: "Present",
+                label: paragraphs[3],
                 dateTime: new Date().getFullYear(),
               }
             : paragraphs[3],
