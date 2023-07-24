@@ -1,6 +1,7 @@
 import React from "react";
 import { MailIcon } from "./Icons";
 import Button from "./Button";
+import { SafeHtml } from "@uniwebcms/module-sdk";
 
 export default function Newsletter({
   block: {
@@ -17,11 +18,13 @@ export default function Newsletter({
     >
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <MailIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">{header.title}</span>
+        <SafeHtml as="span" value={header.title} className="ml-3" />
       </h2>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        {paragraphs[0]}
-      </p>
+      <SafeHtml
+        as="p"
+        value={paragraphs[0]}
+        className="mt-2 text-sm text-zinc-600 dark:text-zinc-400"
+      />
       <div className="mt-6 flex">
         <input
           type="email"

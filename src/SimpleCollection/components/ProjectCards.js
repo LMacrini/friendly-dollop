@@ -14,7 +14,6 @@ function LinkIcon(props) {
 }
 
 export default function ProjectCards(props) {
-  console.log(props);
   const projects = props.block.content.content[0].content.map((project) => {
     return {
       name: project.attrs.title,

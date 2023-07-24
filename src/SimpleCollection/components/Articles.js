@@ -48,7 +48,7 @@ function Article({ article }) {
   );
 }
 
-const renderIndex = (profiles) => {
+const IndexPage = (profiles) => {
   // return (
   //   <div className="space-y-6">
   //     {profiles.map((profile) => {
@@ -120,8 +120,9 @@ export default function Articles(props) {
   return (
     <Pages
       list={profiles}
-      renderIndex={renderIndex}
+      renderIndex={IndexPage}
       renderSubpage={renderSubpage}
+      {...props}
     />
   );
 }
